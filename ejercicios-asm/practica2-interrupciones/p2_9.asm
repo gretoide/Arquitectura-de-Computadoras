@@ -1,0 +1,53 @@
+;9) Escribir un programa que aguarde el ingreso de una clave de cuatro caracteres por teclado sin visualizarla en pantalla. En
+;caso de coincidir con una clave predefinida (y guardada en memoria) que muestre el mensaje "Acceso permitido", caso
+;contrario el mensaje "Acceso denegado".
+
+ORG 1000h
+	MSJ1 DB "ACCES0 PERMITIDO"
+	MSJ DB "ACCESO DENEGADO"
+	FIN DB ?
+	CONT DB 4
+	
+ORG 1200H
+	CLAVE DB "SAPO" ;1200 = S | 1201H: = A | 1202H = P | 1203h = O
+ORG 1300H
+	CLAVE_INGRESADA DB ? ;1300 = S | 1301H: = A | 1302H = P | 1303h = O
+	
+ORG 2000H
+ ;INGRESO DE LA CLAVE
+ MOV CL, 4
+	MOV BX, OFFSET CLAVE_INGRESADA
+	LOOP: CMP CL, 0
+		JZ COMPARACION
+		INT 6
+		INC BX
+		DEC CL
+		JMP LOOP
+		
+	;COMPARACION DE LA CLAVE
+	COMPARACION: MOV AX, OFFSET CLAVE
+	MOV CX, OFFSET CLAVE_INGRESADA
+	 COMPARAR: CMP CONT, 0
+	 JZ PERMITIDO
+	 MOV BX, AX ;DIRECCION CLAVE
+	 MOV DH, [BX] ;MOVEMOS A DH = CAR CLAVE
+	 MOV BX, CX
+	 MOV DL, [BX] ;DL = CAR CLAAVE INGRESADA
+	 INC AX
+	 INC CX
+	 DEC CONT
+	 CMP DH, DL
+	 JZ COMPARAR
+	 JMP DENEGADO
+	
+	;SI COINCIDE
+	PERMITIDO: MOV BX, OFFSET MSJ1
+		MOV AL, OFFSET MSJ - OFFSET MSJ1
+		JMP FINAL
+	;SI NO COINCIDE, IMPRIME
+	DENEGADO: MOV BX, OFFSET MSJ
+		MOV AL, OFFSET FIN - OFFSET MSJ
+		JMP FINAL
+	FINAL: INT 7
+	INT 0
+END

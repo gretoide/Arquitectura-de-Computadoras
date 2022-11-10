@@ -1,0 +1,33 @@
+HAND_DATOS EQU 40H
+HAND_ESTADO EQU 41H
+
+ORG 1000H
+	MSJ DB "SOY DE BOCA"
+	FIN DB ?
+	
+ORG 2000H
+	;CONFIGURAMOS HANDSHAKE POR CONSULTA DE ESTADO (0 EN BIT 7)
+	;---------------------------------------------
+	 IN AL, HAND_ESTADO ; ESCRIBE EN AL EL ESTADO
+	 AND AL, 011111111B ;solo modificamos el bit 7 que vamos a usar, el resto se mantiene
+	 OUT HAND_ESTADO, AL
+	 
+	;MANDAMOS INICIO DE MENSAJE
+	;--------------------------
+	MOV BX, OFFSET MSJ
+	
+	;CONSULTA DE ESTADO
+	;------------------
+	POLL: IN AL, HAND_ESTADO
+		AND AL, 00000001B ; como (1 and 1 = 1), si da 0 es que está libre
+		JNZ POLL
+		
+		;SI ESTA LIBRE, IMPRIMIMOS
+		;-------------------------
+		MOV AL, [BX]       ; COLOCAMOS EL DATO EN AL
+		OUT HAND_DATOS, AL ; MANDAMOS EL DATO A IMPRIMIR
+		INC BX
+		CMP BX, OFFSET FIN ; COMPARAMOS CONDICIONDE FINAL
+		JNZ POLL
+INT 0
+END
