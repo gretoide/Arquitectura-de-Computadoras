@@ -1,1 +1,1 @@
-C:\Users\gretoide\Desktop\facultad\SI105 - Arquitectura de computadoras\ejercicios-asm\practica4-procesadorRisc\p4_9.s
+C:\Users\gretoide\Desktop\facultad\SI105 - Arquitectura de computadoras\ejercicios-asm\practica5-puntoFlotante\p5-1.s
