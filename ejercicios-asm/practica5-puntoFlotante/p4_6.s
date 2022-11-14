@@ -16,7 +16,7 @@
 ;d) ¿Qué sucedería si la subrutina a_la_potencia necesitara invocar a otra subrutina para realizar la multiplicación, 
 ;por ejemplo, en lugar de usar la instrucción dmul? ¿Cómo sabría cada una de las subrutinas a que dirección de 
 ;memoria deben retornar? 
-;RESPUESTA deberíamos guardarnos el registro $ra para que no lo pise el llamado anidado
+;RESPUESTA deberíamos guardarnos el registro $ra para que no lo pise el llamado anidado.
 ;-----------------------------------------------------------------------------------------------------------------
 
 .data
