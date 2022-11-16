@@ -1,1 +1,1 @@
-C:\Users\gretoide\Desktop\facultad\SI105 - Arquitectura de computadoras\ejercicios-asm\practica5-puntoFlotante\p5_12.s
+C:\Users\gretoide\Desktop\facultad\SI105 - Arquitectura de computadoras\ejercicios-asm\extras\ejemploAtasco.s
