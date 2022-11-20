@@ -1,1 +1,1 @@
-C:\Users\gretoide\Desktop\facultad\SI105 - Arquitectura de computadoras\ejercicios-asm\extras\ejemploAtasco.s
+C:\Users\gretoide\Desktop\facultad\SI105 - Arquitectura de computadoras\ejercicios-asm\practica6-E\p4_1.s
