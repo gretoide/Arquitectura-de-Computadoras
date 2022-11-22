@@ -15,14 +15,11 @@ data: .word 0x10008
 ld $s0,control($zero)
 ld $s1,data($zero)
 
-;declaramos la pila (para guardar valores de subrutina)
-daddi $sp,$zero,0x400
-
-loop: jal ingreso
+loop: jal sub_ingreso
     ;le mandamos el caracter a nuestra otra subrutina
     dadd $a0,$zero,$v0 ;ahora nuestro argumento para la subrutina muestro, vale lo que tenía el retorno
                         ;de la anterior
-    jal muestra
+    jal sub_muestra
     j loop
 halt
 
@@ -33,7 +30,7 @@ sub_ingreso: daddi $t0,$zero,1 ;para el ingreso de numeros con signo
     sd $t0,0($s0) ;le decimos a control que ingrese el numero
 
     ;NOS GUARDAMOS NUMERO
-    lo $s1,0(s2) ;s2 = nuestro numero leido
+    ld $s1,0($s2) ;s2 = nuestro numero leido
 
     ;CORROBORAMOS SI ES UN NUMERO
     es_num: slti $t0,$s2,0x30 ;compara si es menor a 0
@@ -47,7 +44,7 @@ sub_ingreso: daddi $t0,$zero,1 ;para el ingreso de numeros con signo
 
 ;subrutina muestro
 ;------------------------------------------------------------------
-sub_muestro: daddi $t0,$zero,8 ;indicamos a control que se imprime un número
+sub_muestra: daddi $t0,$zero,8 ;indicamos a control que se imprime un número
     
     daddi $t1,$zero,9 ;inicializamos registro auxiliar en 9 para decrementar posiciones
     daddi $t2,$zero,0x30 ;inicializamos en 0 - 30h para comparar
@@ -55,7 +52,7 @@ sub_muestro: daddi $t0,$zero,8 ;indicamos a control que se imprime un número
     daddi $t4,$zero,vector ;cargamos la direccion de nuestro vector
 
     comparo: beqz $t1,fin ;si recorrimos todo el vector, salimos
-        beq $a0,$t1 imprimo
+        beq $a0,$t1, imprimo
         daddi $t1,$t1,-1 ;decrementamos comparaciones
         daddi $t2,$t2,1 ;incrementamos posiciones
         daddi $t3,$t3,8 ;avanzamos indice
