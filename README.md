@@ -1,5 +1,5 @@
 # Arquitectura de Computadoras
-Materia 'Taller de Programación' de la Facultad de Informática de La Plata, materia del segundo semestre de primer año.
+Materia 'Arquitectura de Computadoras' de la Facultad de Informática de La Plata, materia del segundo semestre de primer año.
 
 
 | Categoría            | Enlace                                                         |
